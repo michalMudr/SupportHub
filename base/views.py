@@ -8,3 +8,12 @@ def home(request):
 
 def userdashboard(request):
     return render(request, 'userdashboard.html')
+
+def agentdashboard(request):
+    return render(request, 'agentdashboard.html')
+
+def admindashboard(request):
+    return render(request, 'admindashboard.html')
+
+def ticket(request):
+    return render(request, 'ticket.html')
