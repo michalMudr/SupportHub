@@ -4,6 +4,7 @@ from django.http import HttpResponse
 # Create your views
 
 def home(request):
-    return HttpResponse('Home Page')
+    return render(request, 'home.html')
+
 def userdashboard(request):
-    return HttpResponse('User Dashboard')
+    return render(request, 'userdashboard.html')
