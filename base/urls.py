@@ -8,7 +8,7 @@ urlpatterns = [
     path('userdashboard/', views.userdashboard, name="UserDashboard"),   
     path('agentdashboard/', views.agentdashboard, name="AgentDashboard"), 
     path('admindashboard/', views.admindashboard, name="AdminDashboard"),   
-    path('ticket/', views.ticket, name="Ticket"),   
+    path('ticket/<str:pk>/', views.ticket, name="ticket"),   
 ]
 
     
