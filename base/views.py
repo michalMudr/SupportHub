@@ -1,15 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Ticket
+from .models import Message
 
 # Create your views
 
-tickets = [
-    {'id':1, 'subject':'Can not login!'},
-    {'id':2, 'subject':'Order enquery!'},
-    {'id':3, 'subject':'Refund!'},
-]
+#tickets = [
+    #{'id':1, 'subject':'Can not login!'},
+    #{'id':2, 'subject':'Order enquery!'},
+    #{'id':3, 'subject':'Refund!'},
+#]
 
 def home(request):
+    tickets= Ticket.objects.all()
     context = {'tickets': tickets}
     return render(request, 'base/home.html', context)
 
@@ -23,9 +25,6 @@ def admindashboard(request):
     return render(request, 'base/admindashboard.html')
 
 def ticket(request, pk):
-    ticket = None
-    for i in tickets:
-        if i['id'] == int(pk):
-            ticket = i
+    ticket = Ticket.objects.get(id=pk)
     context = {'ticket': ticket}        
     return render(request, 'base/ticket.html', context)
