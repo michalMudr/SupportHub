@@ -3,7 +3,28 @@
 {% block content %}
 <h1>Admin Dashboard Template</h1>
 
-<div>
+<style>
+    .home-container{
+        display:grid;
+        grid-template-rows: 1fr 1fr;
+    }
+</style>
+
+<div class="home-container">
+
+    <div>
+
+        <h3>Browse Tickets</h3>
+        <hr>
+
+        {% for ticket in tickets %}
+            <div>
+                <a href="{% url 'Home' %}?q={{ticket.subject}}" >{{ticket.subject}}
+            </div>
+        {% endfor %}
+
+    </div>
+
     <div>
         {% for ticket in tickets %}
         <div>

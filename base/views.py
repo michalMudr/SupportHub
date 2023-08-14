@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import Ticket
 from .models import Message
 from .forms import TicketForm
@@ -12,13 +13,20 @@ from .forms import TicketForm
 #]
 
 def home(request):
-    tickets= Ticket.objects.all()
-    context = {'tickets': tickets}
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    tickets= Ticket.objects.filter(
+        Q(subject__icontains=q) |
+        Q(description__icontains=q) 
+        )
+    
+    
+    context = {'tickets': tickets, }
     return render(request, 'base/home.html', context)
 
 def userdashboard(request):
+   
     tickets= Ticket.objects.all()
-    context = {'tickets': tickets}
+    context = {'tickets': tickets, }
     return render(request, 'base/userdashboard.html', context)
 
 def agentdashboard(request):
