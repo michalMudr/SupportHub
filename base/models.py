@@ -20,6 +20,8 @@ class Ticket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     #priority
     
+    class Meta:
+        ordering = ['-updated', '-created']
     def __str__(self):
         return str(self.subject)
     

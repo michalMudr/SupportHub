@@ -1,1 +1,28 @@
+{% extends 'main.html' %}
+
+{% block content %}
 <h1>Agent Dashboard Template</h1>
+
+<div>
+    <div>
+        {% for ticket in tickets %}
+        <div>
+            <a href="{% url 'update-ticket' ticket.id %}">UpdateTicket</a>
+            <span>@{{ticket.agent.username}}</span>
+            <h5>{{ticket.id}} -- <a href="{% url 'ticket' ticket.id %}">{{ticket.subject}}</a></h5>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
