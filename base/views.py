@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth import authenticate, login, logout
 from .models import Ticket
 from .models import Message
 from .forms import TicketForm
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views
 
@@ -15,7 +17,7 @@ from django.contrib.auth.models import User
 #]
 
 def loginPage(request):
-    
+    page = 'login'
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -24,9 +26,25 @@ def loginPage(request):
             user = User.objects.get(username=username)
         except:
             messages.error(request, 'User does not exists')
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('UserDashboard')
+        else:
+            messages.error(request, 'Username OR password does not exist')
     
-    context ={}
+    context ={'page' : page }
     return render(request, 'base/login_register.html', context)
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
+def registerPage(request):
+    form = UserCreationForm()
+    return render(request, 'base/login_register.html', {'form': form})
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
