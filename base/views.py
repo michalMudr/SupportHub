@@ -87,7 +87,17 @@ def admindashboard(request):
 
 def ticket(request, pk):
     ticket = Ticket.objects.get(id=pk)
-    context = {'ticket': ticket}        
+    ticketmessages = ticket.message_set.all().order_by('-created')
+    
+    if request.method == 'POST':
+        message = Message.objects.create(
+            user=request.user,
+            ticket=ticket,
+            body=request.POST.get('body')
+        )
+        return redirect('ticket', pk=ticket.id)
+    
+    context = {'ticket': ticket, 'ticketmessages': ticketmessages}        
     return render(request, 'base/ticket.html', context)
 
 def createTicket(request):

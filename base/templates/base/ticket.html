@@ -2,7 +2,31 @@
 
 {% block content %}
 
-<h5>{{ticket.subject}}</h5>
+<div class="room-container">
 
+    <h5>{{ticket.subject}}</h5>
+    <hr>
+    <p>{{ticket.description}}</p>
+    <hr>
+    <div class="comment-wrapper">
+        <h3>Conversation</h3>
+        <hr>
+        {% for message in ticketmessages %}
+            <div>
+                <small>@{{message.user}} {{message.created|timesince}} ago </small>
+                <p>{{message.body}}</p>
+            </div>
+        {% endfor %}
+    </div>
 
+    {% if request.user.is_authenticated %}
+    <div class="comment-form">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="body" placeholder="Write your message here..."/>
+        </form>
+    </div>
+    {% endif %}
+
+</div>
 {% endblock content %}
