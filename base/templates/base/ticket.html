@@ -2,31 +2,51 @@
 
 {% block content %}
 
-<div class="room-container">
+<style>
+    .ticket-container{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
 
-    <h5>{{ticket.subject}}</h5>
-    <hr>
-    <p>{{ticket.description}}</p>
-    <hr>
-    <div class="comment-wrapper">
-        <h3>Conversation</h3>
+<div class="ticket-container">
+    <div>
+        <h5>{{ticket.subject}}</h5>
+        
+        <p>{{ticket.description}}</p>
+        
+        <div class="comment-wrapper">
+            <h3>Conversation</h3>
+            <hr>
+            {% for message in ticket_messages %}
+                <div>
+                    {% if request.user == message.user %}
+                    <a href="{% url 'delete-message' message.id %}">Delete</a>
+                    {% endif %}
+                    <small>@{{message.user}} {{message.created|timesince}} ago </small>
+                    <p>{{message.body}}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="comment-form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="body" placeholder="Write your message here..."/>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <div>
+        <h3>Responders</h3>
         <hr>
-        {% for message in ticketmessages %}
-            <div>
-                <small>@{{message.user}} {{message.created|timesince}} ago </small>
-                <p>{{message.body}}</p>
-            </div>
+
+        {% for user in responders %}
+        <div>
+            <p>@{{user.username}}</p>
+        </div>
         {% endfor %}
     </div>
-
-    {% if request.user.is_authenticated %}
-    <div class="comment-form">
-        <form method="POST" action="">
-            {% csrf_token %}
-            <input type="text" name="body" placeholder="Write your message here..."/>
-        </form>
-    </div>
-    {% endif %}
-
 </div>
 {% endblock content %}

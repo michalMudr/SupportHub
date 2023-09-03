@@ -13,7 +13,7 @@ class Ticket(models.Model):
     description = models.TextField(null=True, blank=True)
     #status =
     #category =
-    
+    responders = models.ManyToManyField(User, related_name='responders', blank=True)
     agent = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='assigned_tickets')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='submitted_tickets')
     updated = models.DateTimeField(auto_now=True)
@@ -34,6 +34,6 @@ class Message(models.Model):
     body = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    
+   
     def __str__(self):
         return self.body[0:20]   

@@ -17,6 +17,7 @@ urlpatterns = [
     path('create-ticket/', views.createTicket, name="create-ticket"),
     path('update-ticket/<str:pk>/', views.updateTicket, name="update-ticket"),
     path('delete-ticket/<str:pk>/', views.deleteTicket, name="delete-ticket"),
+    path('delete-message/<str:pk>/', views.deleteMessage, name="delete-message"),
     
 ]
 

@@ -7,6 +7,8 @@ from .models import Message
 from .forms import TicketForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 # Create your views
 
@@ -88,6 +90,7 @@ def admindashboard(request):
 def ticket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     ticketmessages = ticket.message_set.all().order_by('-created')
+    responders = ticket.responders.all()
     
     if request.method == 'POST':
         message = Message.objects.create(
@@ -95,9 +98,10 @@ def ticket(request, pk):
             ticket=ticket,
             body=request.POST.get('body')
         )
+        ticket.responders.add(request.user)
         return redirect('ticket', pk=ticket.id)
     
-    context = {'ticket': ticket, 'ticketmessages': ticketmessages}        
+    context = {'ticket': ticket, 'ticketmessages': ticketmessages, 'responders': responders}        
     return render(request, 'base/ticket.html', context)
 
 def createTicket(request):
@@ -123,9 +127,28 @@ def updateTicket(request, pk):
     context ={'form' : form}
     return render(request, 'base/ticket_form.html', context)
 
+@login_required(login_url='login')
 def deleteTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
+    
+    if request.user != ticket.agent:
+        return HttpResponse('You are not allowed to delete ticket!!!')
+    
     if request.method == 'POST':
         ticket.delete()
         return redirect ('AdminDashboard')
+    
     return render(request, 'base/delete.html', {'obj':ticket})
+
+@login_required(login_url='login')
+def deleteMessage(request, pk):
+    message = Message.objects.get(id=pk)
+    
+    if request.user != message.user:
+        return HttpResponse('You are not allowed to delete ticket!!!')
+    
+    if request.method == 'POST':
+        message.delete()
+        return redirect ('AdminDashboard')
+    
+    return render(request, 'base/delete.html', {'obj':message})
