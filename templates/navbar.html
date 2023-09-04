@@ -1,8 +1,8 @@
-<a href="/">
+<a href="{% url 'UserDashboard' %}">
     <h1>LOGO</h1>
 </a>
 
-<form method="GET" action="{% url 'Home' %}" >
+<form method="GET" action="{% url 'UserDashboard' %}" >
     <input type="text" name="q" placeholder="Search Tickets..."/>
 </form>
 

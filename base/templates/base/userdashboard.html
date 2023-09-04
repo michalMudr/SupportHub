@@ -2,31 +2,31 @@
 
 {% block content %}
 
-
 <h1>User Dashboard</h1>
 
 <style>
-    .home-container{
+    .userdashboard-container{
         display:grid;
-        grid-template-rows: 1fr 1fr;
-        gridtemplate-columns: 1fr 3fr 1fr;}
+        grid-template-columns: 1fr 3fr 1fr;
+    }
 </style>
 
-<div class="home-container">
-
+<div class="userdashboard-container">
     <div>
-
         <h3>Browse Tickets</h3>
-        <hr>
 
         {% for ticket in tickets %}
             <div>
-                <a href="{% url 'Home' %}?q={{ticket.subject}}" >{{ticket.subject}}
+                <a href="{% url 'UserDashboard' %}?q={{ticket.subject}}" >{{ticket.subject}}
             </div>
         {% endfor %}
-
+       
+        <div>
+            <hr>
+            <a href="{% url 'create-ticket' %}">Create ticket</a>
+            <hr>
+        </div>
     </div>
-
     <div>
         {% for ticket in tickets %}
         <div>
@@ -35,13 +35,21 @@
         </div>
         {% endfor %}
     </div>
+    <div>
+        <h3>Recent Comments</h3>
+        <hr>
+        {% for message in ticketmessages %}
+            <div>
+                <small>@{{message.user}} {{message.created|timesince}}</small>
+                <small>replied to "{{message.ticket}}"</small>
 
-</div>
-
-<div>
-   
-    <a href="{% url 'create-ticket' %}">Create ticket</a>
-
+                <p>{{message}}</p>
+                {% if request.user == message.user %}
+                    <a href="{% url 'delete-message' message.id %}">Delete</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock content %}
