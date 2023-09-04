@@ -145,10 +145,10 @@ def deleteMessage(request, pk):
     message = Message.objects.get(id=pk)
     
     if request.user != message.user:
-        return HttpResponse('You are not allowed to delete ticket!!!')
+        return HttpResponse('You are not allowed to delete message!!!')
     
     if request.method == 'POST':
         message.delete()
-        return redirect ('AdminDashboard')
+        return redirect ('UserDashboard')
     
     return render(request, 'base/delete.html', {'obj':message})
