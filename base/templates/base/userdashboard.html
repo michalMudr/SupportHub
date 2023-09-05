@@ -13,19 +13,7 @@
 
 <div class="userdashboard-container">
     <div>
-        <h3>Browse Tickets</h3>
-
-        {% for ticket in tickets %}
-            <div>
-                <a href="{% url 'UserDashboard' %}?q={{ticket.subject}}" >{{ticket.subject}}
-            </div>
-        {% endfor %}
-       
-        <div>
-            <hr>
-            <a href="{% url 'create-ticket' %}">Create ticket</a>
-            <hr>
-        </div>
+       {% include 'base/tickets_component.html' %}
     </div>
     <div>
         {% for ticket in tickets %}
@@ -36,19 +24,7 @@
         {% endfor %}
     </div>
     <div>
-        <h3>Recent Comments</h3>
-        <hr>
-        {% for message in ticketmessages %}
-            <div>
-                <small>@{{message.user}} {{message.created|timesince}}</small>
-                <small>replied to "{{message.ticket}}"</small>
-
-                <p>{{message}}</p>
-                {% if request.user == message.user %}
-                    <a href="{% url 'delete-message' message.id %}">Delete</a>
-                {% endif %}
-            </div>
-        {% endfor %}
+        {% include 'base/recentcomments_component.html' %}
     </div>
 </div>
 

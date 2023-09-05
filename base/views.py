@@ -64,7 +64,6 @@ def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     tickets= Ticket.objects.filter(
         Q(subject__icontains=q) |
-        Q(name_icontains=q)|
         Q(description__icontains=q) 
     )
     
@@ -112,6 +111,7 @@ def ticket(request, pk):
     context = {'ticket': ticket, 'ticketmessages': ticketmessages, 'responders': responders}        
     return render(request, 'base/ticket.html', context)
 
+@login_required(login_url='login')
 def createTicket(request):
     form = TicketForm()
     if request.method == 'POST':
@@ -122,9 +122,13 @@ def createTicket(request):
     context ={'form' : form}
     return render(request, 'base/ticket_form.html', context)
 
+@login_required(login_url='login')
 def updateTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     form = TicketForm(instance=ticket)
+    
+    if request.user != ticket.user:
+        return HttpResponse('You are not allowed to update ticket!!!')
     
     if request.method == 'POST':
         form = TicketForm(request.POST, instance=ticket)

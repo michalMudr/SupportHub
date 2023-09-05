@@ -1,0 +1,13 @@
+<h3>Browse Tickets</h3>
+
+{% for ticket in tickets %}
+    <div>
+        <a href="{% url 'UserDashboard' %}?q={{ticket.subject}}" >{{ticket.subject}}
+    </div>
+{% endfor %}
+
+<div>
+    <hr>
+    <a href="{% url 'create-ticket' %}">Create ticket</a>
+    <hr>
+</div>

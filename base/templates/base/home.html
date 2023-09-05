@@ -29,16 +29,7 @@
 
     </div>
     
-    <div>
-        <hr>
-        {% for ticket in tickets %}
-        <div>
-            <a href="{% url 'update-ticket' ticket.id %}">UpdateTicket</a>
-            <span>@{{ticket.agent.username}}</span>
-            <h5>{{ticket.id}} -- <a href="{% url 'ticket' ticket.id %}">{{ticket.subject}}</a></h5>
-        </div>
-        {% endfor %}
-    </div>
+    {% include 'base/feed_component.html'%}
 
 </div>
 
