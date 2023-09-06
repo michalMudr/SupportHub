@@ -111,6 +111,16 @@ def ticket(request, pk):
     context = {'ticket': ticket, 'ticketmessages': ticketmessages, 'responders': responders}        
     return render(request, 'base/ticket.html', context)
 
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    ticket = Ticket.objects.get(id=pk)
+    ticketmessages = user.message_set.all()
+    
+    
+    context = {'user':user, 'ticketmessages':ticketmessages, }
+    return render(request, 'base/profile.html', context)
+    
+
 @login_required(login_url='login')
 def createTicket(request):
     form = TicketForm()

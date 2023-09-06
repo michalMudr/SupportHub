@@ -13,6 +13,7 @@ urlpatterns = [
     path('agentdashboard/', views.agentdashboard, name="AgentDashboard"), 
     path('admindashboard/', views.admindashboard, name="AdminDashboard"),   
     path('ticket/<str:pk>/', views.ticket, name="ticket"),   
+    path('profile/<str:pk>/', views.userProfile, name="user-profile"),
     
     path('create-ticket/', views.createTicket, name="create-ticket"),
     path('update-ticket/<str:pk>/', views.updateTicket, name="update-ticket"),

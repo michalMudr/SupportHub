@@ -16,12 +16,11 @@
        {% include 'base/tickets_component.html' %}
     </div>
     <div>
-        {% for ticket in tickets %}
+        
         <div>
-            <span>@{{ticket.agent.username}}</span>
-            <h5>{{ticket.id}} -- <a href="{% url 'ticket' ticket.id %}">{{ticket.subject}}</a></h5>
+            {% include 'base/feed_component.html' %}
         </div>
-        {% endfor %}
+        
     </div>
     <div>
         {% include 'base/recentcomments_component.html' %}
