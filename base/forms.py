@@ -6,3 +6,4 @@ class TicketForm(ModelForm):
     class Meta:
         model = Ticket
         fields = '__all__'
+        exclude = ['responders', 'user']

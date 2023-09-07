@@ -127,7 +127,9 @@ def createTicket(request):
     if request.method == 'POST':
         form = TicketForm(request.POST)
         if form.is_valid():
-            form.save()
+            ticket = form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
             return redirect('UserDashboard')
     context ={'form' : form}
     return render(request, 'base/ticket_form.html', context)

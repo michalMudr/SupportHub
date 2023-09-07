@@ -1,9 +1,11 @@
 <h3>Browse Tickets</h3>
 
 {% for ticket in tickets %}
+    {% if request.user == ticket.user %}
     <div>
         <a href="{% url 'UserDashboard' %}?q={{ticket.subject}}" >{{ticket.subject}}
     </div>
+    {% endif %}
 {% endfor %}
 
 <div>

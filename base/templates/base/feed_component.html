@@ -7,9 +7,11 @@
         <a href="{% url 'delete-ticket' ticket.id %}">DeleteTicket</a>
         {% endif %}
 
-
-        <a href="{% url 'user-profile' ticket.user.id %}">@{{ticket.user.username}}</a>
+        {% if request.user == ticket.user %}
+        <a>@{{ticket.user.username}}</a>
         <h5>{{ticket.id}} -- <a href="{% url 'ticket' ticket.id %}">{{ticket.subject}}</a></h5>
+        <p>{{ticket.description}}</p>
+        {% endif %}
     </div>
     {% endfor %}
 </div>
