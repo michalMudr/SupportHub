@@ -276,20 +276,23 @@ a {
 }
 
 .header__logo,
-.header__user {
+.header__user,
+.header__search,
+.header__menu {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
 }
 
 .header__logo > img {
-  height: 3.2rem;
-  width: 3.2rem;
+  height: 10.2rem;
+  width: 10.2rem;
+  
 }
 
 .header__logo > h1 {
-  font-weight: 700;
-  font-size: 2rem;
+  font-weight: 7000;
+  font-size: 5rem;
   color: var(--color-light);
 }
 
@@ -1109,8 +1112,8 @@ a {
 
 .ticket__message > form > input {
   resize: none;
-  background-color: var(--color-dark-light);
-  color: var(--color-light);
+  background-color: var(--color-main-light);
+  color: var(--color-main);
   border: none;
   outline: none;
   border-radius: 0.7rem;
@@ -1124,7 +1127,7 @@ a {
 }
 
 .room__message > form > input::placeholder {
-  color: var(--color-light-gray);
+  color: var(--color-main);
 }
 
 .participants__top span {
