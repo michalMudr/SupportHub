@@ -20,6 +20,8 @@ urlpatterns = [
     path('delete-ticket/<str:pk>/', views.deleteTicket, name="delete-ticket"),
     path('delete-message/<str:pk>/', views.deleteMessage, name="delete-message"),
     
+    path('update-user/', views.updateUser, name="update-user"),
+    
 ]
 
     

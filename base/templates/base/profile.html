@@ -18,7 +18,9 @@
         <div class="profile__info">
           <h3>{{user.name}}</h3>
           <p>@{{user.username}}</p>
-         
+          {% if request.user == user %}
+          <a href="{% url 'update-user' %}" class="btn btn--main btn--pill">Edit Pofile</a>
+          {% endif %}
         </div>
         <div class="profile__about">
           <h3>About</h3>
@@ -32,9 +34,10 @@
         <div>
           <h2>Study Rooms Hosted by dennis_ivy</a>
           </h2>
+          {% include 'base/feed_component.html' %}
         </div>
       </div>
-      {% include 'base/feed_component.html' %}
+     
 
 
     </div>

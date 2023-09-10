@@ -2,7 +2,8 @@
 {% if request.user == ticket.user %}
 <div class="roomListRoom">
     <div class="roomListRoom__header">
-      <a href="{% url 'user-profile' ticket.user %}" class="roomListRoom__author">
+        <h3>Ticket Id Number: {{ticket.id}} </h3>
+      <a href="{% url 'user-profile' request.user.id %}" class="roomListRoom__author">
         <div class="avatar avatar--small">
           <img src="https://randomuser.me/api/portraits/women/11.jpg" />
         </div>
