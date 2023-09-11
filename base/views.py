@@ -3,7 +3,8 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from .models import Ticket
-from .models import Message, User
+from .models import Message
+from base.models import User
 from .forms import TicketForm, UserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required

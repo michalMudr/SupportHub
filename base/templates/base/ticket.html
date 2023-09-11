@@ -60,7 +60,7 @@
             <p>Ticket created By</p>
             <a href="{% url 'user-profile' ticket.user.id %}" class="room__author">
               <div class="avatar avatar--small">
-                <img src="{{room.host.avatar.url}}" />
+                <img src="{{ticket.user.avatar.url}}" />
               </div>
               <span>@{{ticket.user.username}}</span>
             </a>
