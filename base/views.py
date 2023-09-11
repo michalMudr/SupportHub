@@ -3,9 +3,8 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from .models import Ticket
-from .models import Message
+from .models import Message, User
 from .forms import TicketForm, UserForm
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -113,11 +112,12 @@ def ticket(request, pk):
 
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
+    tickets = User.ticket_set.all()
     ticket = Ticket.objects.get(id=pk)
     ticketmessages = user.message_set.all()
     
     
-    context = {'user':user, 'ticketmessages':ticketmessages, }
+    context = {'user':user, 'ticketmessages':ticketmessages, 'tickets':tickets }
     return render(request, 'base/profile.html', context)
     
 

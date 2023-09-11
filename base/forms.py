@@ -1,6 +1,6 @@
 from django.forms import ModelForm
-from .models import Ticket
-from django.contrib.auth.models import User
+from .models import Ticket, User
+
 
 class TicketForm(ModelForm):
     class Meta:
