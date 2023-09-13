@@ -22,33 +22,15 @@
         <form class="form" action="" method="POST">
           {% csrf_token %}
           {% for field in form %}
-          <div class="form__group">
-            <label for="room_topic"> {{field.label}} </label>
-            {{field}}
-            <!--<input required id="room_name" type="text" value="{{ticket.subject}}" name="topic" /> -->
-          </div>
+            {% if request.user.kind == 'NORMAL'%}
+              {% if field.name != 'status' %}
+                <div class="form__group">
+                  <label for="room_topic"> {{field.label}} </label>
+                  {{field}}
+                </div>
+              {% endif %}  
+            {% endif %}  
           {% endfor %}
-
-          
-
-          <div class="form__group">
-            <label for="room_description">Please describe your issue in more detail</label>
-            <input required type="text" value="{{ticket.description}}" name="description" />
-          </div>
-
-          <!-- <div class="form__group">
-            <label for="room_topic">Topic</label>
-            <input required type="text" name="topic" id="room_topic" list="topic-list" />
-            <datalist id="topic-list">
-              <select id="room_topic">
-                <option value="">Select your topic</option>
-                <option value="Python">Python</option>
-                <option value="Django">Django</option>
-              </select>
-            </datalist>
-
-          </div> -->
-
 
           <div class="form__action">
             <a class="btn btn--dark" href="{% url 'UserDashboard' %}">Cancel</a>

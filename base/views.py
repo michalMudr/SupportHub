@@ -137,29 +137,24 @@ def createTicket(request):
 def updateTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     form = TicketForm(instance=ticket)
+
     
-    if request.user != ticket.user:
+    if request.user.kind == 'NORMAL':
         return HttpResponse('You are not allowed to update ticket!!!')
     
-    if request.method == 'POST':
-        form = TicketForm(request.POST, instance=ticket)
-        if form.is_valid():
-            form.save()
-            return redirect('UserDashboard')
     
-    context ={'form' : form}
-    return render(request, 'base/ticket_form.html', context)
+    return render(request, 'base/update_ticket.html', {'form': form} )
 
 @login_required(login_url='login')
 def deleteTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     
-    if request.user != ticket.agent:
+    if request.user.kind == 'AGENT':
         return HttpResponse('You are not allowed to delete ticket!!!')
     
     if request.method == 'POST':
         ticket.delete()
-        return redirect ('AdminDashboard')
+        return redirect ('UserDashboard')
     
     return render(request, 'base/delete.html', {'obj':ticket})
 

@@ -17,9 +17,9 @@
           </a>
           <h3>Ticket Id Number: {{ticket.id}} </h3>
         </div>
-        {% if ticket.user == request.user %}
+       
           <div class="room__topRight">
-            {% if ticket.user.kind == 'AGENT' %}
+            {% if request.user.kind == 'AGENT' %}
             <a href="{% url 'update-ticket' ticket.id %}">
               <svg enable-background="new 0 0 24 24" height="32" viewBox="0 0 24 24" width="32"
               xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@
               </svg>
             </a>
             {% endif %}
-            {% if ticket.status == 'CLOSED' %}
+            {% if ticket.status == 'CLOSED' and request.user == ticket.user %} 
             <a href="{% url 'delete-ticket' ticket.id %}">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>delete ticket</title>
@@ -51,7 +51,7 @@
             </a>
             {% endif %}
           </div>
-        {% endif %}
+       
 
       </div>
       <div class="room__box scroll">

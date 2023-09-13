@@ -44,11 +44,12 @@ class Ticket(models.Model):
     description = models.TextField(null=True, blank=True)
     #category =
     responders = models.ManyToManyField(User, related_name='responders', blank=True)
-    agent = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='assigned_tickets')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='submitted_tickets')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     #priority
+    
+    
     
     class Meta:
         ordering = ['-updated', '-created']
