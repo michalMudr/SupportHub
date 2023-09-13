@@ -7,19 +7,41 @@ from django.contrib.auth.models import AbstractUser
 #Create your models here.
 
 class User(AbstractUser):
+    NORMAL = 'NORMAL'
+    AGENT = 'AGENT'
+    KIND = [
+        (NORMAL, 'Normal'),
+        (AGENT, 'Agent'),
+    ]
+    kind = models.CharField(
+        max_length=6,
+        choices = KIND,
+        default = NORMAL,
+    )           
     name = models.CharField(max_length=200, null=True)
+    username = models.CharField(max_length=20, unique=True, null=True)
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True)
-
+    
     avatar = models.ImageField(null=True, default="avatar.svg")
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    
+    REQUIRED_FIELDS = [name, username, email, bio, avatar]
 
 class Ticket(models.Model):
+    OPEN = 'OPEN'
+    CLOSED = 'CLOSED'
+    STATUS = [
+        (OPEN, 'Open'),
+        (CLOSED, 'Closed'),
+    ]
+    status = models.CharField(
+        max_length=6,
+        choices = STATUS,
+        default = OPEN,
+    )           
     subject = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    #status =
     #category =
     responders = models.ManyToManyField(User, related_name='responders', blank=True)
     agent = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='assigned_tickets')

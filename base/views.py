@@ -53,7 +53,8 @@ def registerPage(request):
             login(request, user)
             return redirect('UserDashboard')
         else:
-            messages.error(request, ' An error occured during registration')
+         messages.error(request, form.errors)
+      
             
     return render(request, 'base/login_register.html', {'form': form})
 
@@ -110,12 +111,12 @@ def ticket(request, pk):
 
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
-    tickets = User.ticket_set.all()
+   
     ticket = Ticket.objects.get(id=pk)
     ticketmessages = user.message_set.all()
     
     
-    context = {'user':user, 'ticketmessages':ticketmessages, 'tickets':tickets }
+    context = {'user':user, 'ticketmessages':ticketmessages }
     return render(request, 'base/profile.html', context)
     
 
@@ -144,7 +145,7 @@ def updateTicket(request, pk):
         form = TicketForm(request.POST, instance=ticket)
         if form.is_valid():
             form.save()
-            return redirect('AgentDashboard')
+            return redirect('UserDashboard')
     
     context ={'form' : form}
     return render(request, 'base/ticket_form.html', context)

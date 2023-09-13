@@ -1,6 +1,7 @@
 from django.forms import ModelForm
-from .models import Ticket, User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Ticket, User
+
 
 class MyUserCreationForm(UserCreationForm):
     class Meta:

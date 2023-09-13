@@ -19,6 +19,7 @@
         </div>
         {% if ticket.user == request.user %}
           <div class="room__topRight">
+            {% if ticket.user.kind == 'AGENT' %}
             <a href="{% url 'update-ticket' ticket.id %}">
               <svg enable-background="new 0 0 24 24" height="32" viewBox="0 0 24 24" width="32"
               xmlns="http://www.w3.org/2000/svg">
@@ -38,6 +39,8 @@
               </g>
               </svg>
             </a>
+            {% endif %}
+            {% if ticket.status == 'CLOSED' %}
             <a href="{% url 'delete-ticket' ticket.id %}">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>delete ticket</title>
@@ -46,6 +49,7 @@
               </path>
             </svg>
             </a>
+            {% endif %}
           </div>
         {% endif %}
 
@@ -66,7 +70,7 @@
             </a>
           </div>
           
-          <span class="room__topics">{{ticket.subject}}</span>
+          <span class="room__topics">Status: {{ticket.status}}</span>
           <div class="room__details">
           <p> 
             {{ticket.description}} 
