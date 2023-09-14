@@ -4,13 +4,13 @@
 
     <main class="layout layout--3">
       <div class="container">
-        <!-- Topics Start -->
+        <!-- Browse Tickets -->
         <div>
         {% include 'base/tickets_component.html' %}
         </div>
-        <!-- Topics End -->
+        <!-- Browse Tickets -->
 
-        <!-- Room List Start -->
+        <!-- Ticket List Start -->
         <div class="roomList">
           <div class="mobile-menu">
             <form action="{% url 'UserDashboard' %}" method="GET" class="header__search">
@@ -49,14 +49,14 @@
           {% include 'base/feed_component.html' %}
          
         </div>
-        <!-- Room List End -->
+        <!-- Ticket List End -->
 
-        <!-- Activities Start -->
+        <!-- Comments Start -->
         <div>
           {% include 'base/recentcomments_component.html' %}
         </div>
         
-        <!-- Activities End -->
+        <!-- Comments End -->
       </div>
     </main>
     <script src="script.js"></script>
