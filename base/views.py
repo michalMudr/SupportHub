@@ -60,16 +60,6 @@ def registerPage(request):
             
     return render(request, 'base/login_register.html', {'form': form})
 
-def home(request):
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
-    tickets= Ticket.objects.filter(
-        Q(subject__icontains=q) |
-        Q(description__icontains=q) 
-    )
-    
-    
-    context = {'tickets': tickets, }
-    return render(request, 'base/home.html', context)
 
 def userdashboard(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
@@ -84,15 +74,6 @@ def userdashboard(request):
     context = {'tickets': tickets, 'ticketmessages':ticketmessages }
     return render(request, 'base/userdashboard.html', context)
 
-def agentdashboard(request):
-    tickets= Ticket.objects.all()
-    context = {'tickets': tickets}
-    return render(request, 'base/agentdashboard.html', context)
-
-def admindashboard(request):
-    tickets= Ticket.objects.all()
-    context = {'tickets': tickets}
-    return render(request, 'base/admindashboard.html', context)
 
 def ticket(request, pk):
     ticket = Ticket.objects.get(id=pk)
