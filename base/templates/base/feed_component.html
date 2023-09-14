@@ -1,4 +1,4 @@
-{% for ticket in tickets %}
+{% for ticket in tickets|dictsortreversed:"status" %}
 
 {% if request.user.kind == 'AGENT' %}
 <div class="roomListRoom">
@@ -17,6 +17,7 @@
   <div class="roomListRoom__content">
     <a href="{% url 'ticket' ticket.id %}">{{ticket.subject}}</a>
     <p>{{ticket.description}}</p>
+    <span class="room__topics">Status: {{ticket.status}}</span>
   </div>
   <div class="roomListRoom__meta">
     <a href="{% url 'ticket' ticket.id %}" class="roomListRoom__joined">
@@ -58,6 +59,7 @@
     <div class="roomListRoom__content">
       <a href="{% url 'ticket' ticket.id %}">{{ticket.subject}}</a>
       <p>{{ticket.description}}</p>
+      <span class="room__topics">Status: {{ticket.status}}</span>
     </div>
     <div class="roomListRoom__meta">
       <a href="{% url 'ticket' ticket.id %}" class="roomListRoom__joined">

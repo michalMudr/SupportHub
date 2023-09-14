@@ -6,6 +6,8 @@ from .models import Ticket, Message, User
 from .forms import TicketForm, UserForm, MyUserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from .forms import TicketStatusForm
 
 # Create your views
 
@@ -111,10 +113,7 @@ def ticket(request, pk):
 
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
-   
-    ticket = Ticket.objects.get(id=pk)
     ticketmessages = user.message_set.all()
-    
     
     context = {'user':user, 'ticketmessages':ticketmessages }
     return render(request, 'base/profile.html', context)
@@ -135,15 +134,26 @@ def createTicket(request):
 
 @login_required(login_url='login')
 def updateTicket(request, pk):
-    ticket = Ticket.objects.get(id=pk)
-    form = TicketForm(instance=ticket)
+    ticket = get_object_or_404(Ticket, id=pk)
 
-    
+    # Check if the user is allowed to update the ticket
     if request.user.kind == 'NORMAL':
-        return HttpResponse('You are not allowed to update ticket!!!')
-    
-    
-    return render(request, 'base/update_ticket.html', {'form': form} )
+        return HttpResponse('You are not allowed to update this ticket!')
+
+    if request.method == 'POST':
+        form = TicketStatusForm(request.POST, instance=ticket)  # Use a form that only includes the "status" field
+        if form.is_valid():
+            form.save()
+            return redirect('UserDashboard')
+
+    else:
+        form = TicketStatusForm(instance=ticket)  # Use the same form for rendering
+
+    context = {'form': form, 'ticket': ticket}
+    return render(request, 'base/update_ticket.html', context)
+
+
+
 
 @login_required(login_url='login')
 def deleteTicket(request, pk):

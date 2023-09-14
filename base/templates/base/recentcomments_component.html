@@ -4,7 +4,7 @@
     </div>
 
     {% for message in ticketmessages %}
-    {% if request.user == message.user or message.user.kind == 'AGENT' %}
+    {% if request.user == message.user or request.user.kind == 'AGENT' %}
     <div class="activities__box">
       <div class="activities__boxHeader roomListRoom__header">
           <div class="avatar avatar--small">

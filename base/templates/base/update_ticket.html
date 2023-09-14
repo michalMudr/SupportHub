@@ -19,15 +19,14 @@
             </div>
             <div class="layout__body">
                 <form class="form" action="" method="POST">
-                        {% csrf_token %}
-                        {% if request.user.kind == 'AGENT' and ticket.status == 'CLOSED' %}
-                            {% for field in form %}
-                                <div class="form__group">
-                                    <label for="room_topic"> {{field.label}} </label>
-                                    {{field}}
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                    {% csrf_token %}
+                    {% for field in form %}
+                          <div class="form__group">
+                            <label for="room_topic"> {{field.label}} </label>
+                            {{field}}
+                          </div>
+                    {% endfor %}
+                    
                         <div class="form__action">
                             <a class="btn btn--dark" href="{% url 'UserDashboard' %}">Cancel</a>
                             <button class="btn btn--main" type="submit">Submit</button>
