@@ -19,6 +19,10 @@ On Windows: Copy code venv\Scripts\activate On macOS and Linux: bash Copy code s
 
 Copy code pip install -r requirements.txt Apply Migrations: Apply the database migrations to set up the database schema:
 
+Copy code pip install django
+
+Copy code pip install pillow
+
 Copy code python manage.py migrate Create a Superuser (Admin User): You can create an admin user to manage the application:
 
 Copy code python manage.py createsuperuser Run the Development Server: Start the Django development server:
