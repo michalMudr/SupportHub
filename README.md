@@ -27,10 +27,7 @@ Activate the Virtual Environment: Activate the virtual environment depending on 
 
 On Windows: Copy code venv\Scripts\activate On macOS and Linux: bash Copy code source venv/bin/activate Install Dependencies: Install the required Python dependencies:
 
-Copy code pip install -r requirements.txt 
-
-Apply Migrations: Apply the database migrations to set up the database schema:
-
+Copy code pip install -r requirements.txt Apply Migrations: Apply the database migrations to set up the database schema:
 
 Copy code python manage.py migrate 
 
